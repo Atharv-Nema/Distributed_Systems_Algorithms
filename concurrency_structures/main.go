@@ -5,6 +5,6 @@ import (
 )
 
 func main() {
-	fridgeLock := new(Lock.LamportLock)
+	fridgeLock := Lock.NewMutex()
 	Lock.RunSimulation(fridgeLock)
 }

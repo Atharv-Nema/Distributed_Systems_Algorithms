@@ -12,23 +12,23 @@ var (
 
 // Simulating the beer buying problem
 func consumeBeer(id int, fridgeLock Lock) {
-	fridgeLock.lock(id)
+	fridgeLock.Lock(id)
 	if numBeers > 0 {
 		numBeers--
 		fmt.Printf("Process id %d consumed beer\n", id)
 		fmt.Printf("Remaining beers are %d\n", numBeers)
 	}
-	fridgeLock.unlock(id)
+	fridgeLock.Unlock(id)
 }
 
 func buyBeer(id int, fridgeLock Lock) {
-	fridgeLock.lock(id)
+	fridgeLock.Lock(id)
 	if numBeers == 0 {
 		numBeers += 5
 		fmt.Printf("Process id %d bought beer\n", id)
 		fmt.Printf("Remaining beers are %d\n", numBeers)
 	}
-	fridgeLock.unlock(id)
+	fridgeLock.Unlock(id)
 }
 
 func alcoholic(id int, fridgeLock Lock) {

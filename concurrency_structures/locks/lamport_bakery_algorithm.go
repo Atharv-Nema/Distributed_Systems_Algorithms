@@ -12,7 +12,9 @@ type LamportLock struct {
 // to have calculated the max_value, but be stuck just before assigning it. Enter[pid] is used to prevent these cases,
 // as we wait until all things have been assigned.
 
-func (ll *LamportLock) lock(pid int) {
+// Question: How are array reads safe here?
+
+func (ll *LamportLock) Lock(pid int) {
 	ll.Enter[pid] = true
 	max_val := ll.Number[0]
 	for _, value := range ll.Number {
@@ -37,6 +39,6 @@ func (ll *LamportLock) lock(pid int) {
 	}
 }
 
-func (ll *LamportLock) unlock(pid int) {
+func (ll *LamportLock) Unlock(pid int) {
 	ll.Number[pid] = 0
 }
