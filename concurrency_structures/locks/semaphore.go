@@ -1,6 +1,8 @@
 package Lock
 
-import DS "concurrency_structures/helper_datastructures"
+import (
+	DS "concurrency_structures/helper_datastructures"
+)
 
 // Unfortunately, go does not allow us to halt and resume individual goroutines directly.
 // Hence, I am implementing semaphores using a queue of channels, which honestly is pretty stupid
@@ -37,7 +39,6 @@ func (s *Semaphore) Wait(pid int) {
 }
 
 func (s *Semaphore) Signal(pid int) {
-	// s.capacity ++
 	s.outerlock.Lock(pid)
 	if s.waiting_ct == 0 {
 		s.current_capacity++

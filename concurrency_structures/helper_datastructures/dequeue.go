@@ -1,4 +1,4 @@
-package Structures
+package DS
 
 type dequeNode[T any] struct {
 	value T

@@ -1,6 +1,7 @@
-package Lock
+package Simulations
 
 import (
+	Lock "concurrency_structures/locks"
 	"fmt"
 	"math/rand"
 	"time"
@@ -11,7 +12,7 @@ var (
 )
 
 // Simulating the beer buying problem
-func consumeBeer(id int, fridgeLock Lock) {
+func consumeBeer(id int, fridgeLock Lock.Lock) {
 	fridgeLock.Lock(id)
 	if numBeers > 0 {
 		numBeers--
@@ -21,7 +22,7 @@ func consumeBeer(id int, fridgeLock Lock) {
 	fridgeLock.Unlock(id)
 }
 
-func buyBeer(id int, fridgeLock Lock) {
+func buyBeer(id int, fridgeLock Lock.Lock) {
 	fridgeLock.Lock(id)
 	if numBeers == 0 {
 		numBeers += 5
@@ -31,7 +32,7 @@ func buyBeer(id int, fridgeLock Lock) {
 	fridgeLock.Unlock(id)
 }
 
-func alcoholic(id int, fridgeLock Lock) {
+func alcoholic(id int, fridgeLock Lock.Lock) {
 	for {
 		amt := time.Duration(rand.Intn(250))
 		time.Sleep(time.Millisecond * amt)
@@ -44,7 +45,7 @@ func alcoholic(id int, fridgeLock Lock) {
 	}
 }
 
-func RunSimulation(fridgeLock Lock) {
+func RunDrunkardSimulation(fridgeLock Lock.Lock) {
 	numBeers = 0
 	for i := range 10 {
 		go alcoholic(i, fridgeLock)
